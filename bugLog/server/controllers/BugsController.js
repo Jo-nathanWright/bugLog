@@ -12,6 +12,7 @@ export class BugsController extends BaseController {
       .get('/:id', this.getById)
       .post('', this.create)
       .get('/:id/notes', this.getNotesByBug)
+      .put('/:id', this.edit)
   }
 
   async getAll(req, res, next) {
@@ -50,4 +51,28 @@ export class BugsController extends BaseController {
       next(error)
     }
   }
+
+  async edit(req, res, next) {
+    try {
+      // DONT TRUST THE USER
+      delete req.body.closed
+      const user = req.userInfo
+      req.body.id = req.params.id
+      const bug = await bugsService.edit(req.body, user)
+      res.send(bug)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  // async remove(req, res, next) {
+  //   try {
+  //     const user = req.userInfo
+  //     req.body.id = req.params.id
+  //     await bugsService.remove(req.body, req.params.id, user)
+  //     res.send({ message: 'That has been removed' })
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 }
