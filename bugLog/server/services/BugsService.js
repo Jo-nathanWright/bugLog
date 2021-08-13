@@ -1,8 +1,17 @@
 import { dbContext } from '../db/DbContext'
+import { BadRequest } from '../utils/Errors'
 
 class BugsService {
   async getAll(query = {}) {
     return await dbContext.Bugs.find(query).populate('creator', 'name picture')
+  }
+
+  async getById(bugId) {
+    const bug = await dbContext.Bugs.findById(bugId).populate('creator', 'name picture')
+    if (!bug) {
+      throw new BadRequest('Invalid Id')
+    }
+    return bug
   }
 
   async create(body) {

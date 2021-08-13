@@ -8,12 +8,22 @@ export class BugsController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
+      .get('/:id', this.getById)
       .post('', this.create)
   }
 
   async getAll(req, res, next) {
     try {
       const bug = await bugsService.getAll({ creatorId: req.userInfo.id })
+      res.send(bug)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getById(req, res, next) {
+    try {
+      const bug = await bugsService.getById(req.params.id)
       res.send(bug)
     } catch (error) {
       next(error)
