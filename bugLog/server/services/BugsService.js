@@ -1,6 +1,5 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
-import { logger } from '../utils/Logger'
 
 class BugsService {
   async getAll(query = {}) {
@@ -30,13 +29,13 @@ class BugsService {
       return bug
     }
   }
-}
 
-// async remove(body, id, user) {
-//   const bug = await this.getById(id)
-//   if (user.id === bug.creatorId.toString()) {
-//     return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
-//   }
-// }
+  // async remove(body, id, user) {
+  //   const bug = await this.getById(id)
+  //   if (user.id === bug.creatorId.toString()) {
+  //     return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
+  //   }
+  // }
+}
 
 export const bugsService = new BugsService()

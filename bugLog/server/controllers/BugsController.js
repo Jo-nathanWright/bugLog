@@ -13,6 +13,7 @@ export class BugsController extends BaseController {
       .post('', this.create)
       .get('/:id/notes', this.getNotesByBug)
       .put('/:id', this.edit)
+      // .delete('/:id', this.remove)
   }
 
   async getAll(req, res, next) {
@@ -69,8 +70,9 @@ export class BugsController extends BaseController {
   //   try {
   //     const user = req.userInfo
   //     req.body.id = req.params.id
-  //     await bugsService.remove(req.body, req.params.id, user)
-  //     res.send({ message: 'That has been removed' })
+  //     req.body = req.body.closed === true
+  //     const bug = await this.edit(req.params.id, user)
+  //     res.send(bug)
   //   } catch (error) {
   //     next(error)
   //   }
