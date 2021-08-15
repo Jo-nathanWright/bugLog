@@ -2,13 +2,13 @@
   <div class="row justify-content-center mt-3">
     <div class="col-md-10 col-10 mb-2">
       <div class="row mb-2">
-        <div class="col-md-1 col-6">
+        <div class="col-md-1 col-4">
           <h3>Bugs</h3>
         </div>
-        <div class="col-md-11 col-6 d-flex justify-content-end">
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Create">
+        <div class="col-md-11 col-8 d-flex justify-content-end">
+          <h4 class="action" data-toggle="modal" data-target="#Create">
             Report A Bug
-          </button>
+          </h4>
         </div>
       </div>
       <div class="row border border-dark bg-dark text-light">
@@ -44,14 +44,23 @@
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Title</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Bug Title...">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Bug Infomation</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Bug Info..." rows="4"></textarea>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
           <button type="button" class="btn btn-primary">
-            Save changes
+            Submit
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Close
           </button>
         </div>
       </div>
@@ -82,5 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.action{
+  cursor: pointer;
+}
 </style>
