@@ -2,7 +2,9 @@
   <div class="row border border-dark">
     <div class="col-md-3 col-12 pt-2">
       <h5 class="pl-2">
-        {{ bug.title }}
+        <router-link :to="{ name: 'Info', params: {bugId: bug.id} }">
+          <span class="text-muted text-dark">{{ bug.title }}</span>
+        </router-link>
       </h5>
     </div>
     <div class="col-md-4 col-12 pt-2">
