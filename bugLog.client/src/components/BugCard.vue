@@ -1,26 +1,28 @@
 <template>
-  <div class="col-md-3 border-left border-top border-bottom border-dark pt-2">
-    <h5 class="pl-2">
-      {{ bug.title }}
-    </h5>
-  </div>
-  <div class="col-md-3 border-top border-bottom border-dark pt-2">
-    <h5 class="pl-2">
-      {{ bug.creator.name }}
-    </h5>
-  </div>
-  <div class="col-md-3 border-top border-bottom border-dark pt-2">
-    <span v-if="bug.closed === false">
-      <h5 class="pl-2">Open 🟢</h5>
-    </span>
-    <span v-else>
-      <h5 class="pl-2">Closed 🔴</h5>
-    </span>
-  </div>
-  <div class="col-md-3 border-top border-bottom border-right border-dark pt-2">
-    <h5 class="pl-2">
-      {{ date }}
-    </h5>
+  <div class="row border border-dark">
+    <div class="col-md-3 col-12 pt-2">
+      <h5 class="pl-2">
+        {{ bug.title }}
+      </h5>
+    </div>
+    <div class="col-md-4 col-12 pt-2">
+      <h5 class="pl-2">
+        {{ bug.creator.name }}
+      </h5>
+    </div>
+    <div class="col-md-2 col-5 pt-2">
+      <span v-if="bug.closed === false">
+        <h5 class="pl-2">Open 🟢</h5>
+      </span>
+      <span v-else>
+        <h5 class="pl-2">Closed 🔴</h5>
+      </span>
+    </div>
+    <div class="col-md-3 col-7 pt-2">
+      <h5 class="pl-2">
+        {{ date }}
+      </h5>
+    </div>
   </div>
 </template>
 
@@ -48,3 +50,6 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+</style>
