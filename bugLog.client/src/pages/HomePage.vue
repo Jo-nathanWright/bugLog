@@ -44,24 +44,37 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form @submit.prevent="create()">
             <div class="form-group">
               <label for="exampleFormControlInput1">Title</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Bug Title...">
+              <input type="text"
+                     class="form-control"
+                     id="exampleFormControlInput1"
+                     v-model="state.newBug.title"
+                     placeholder="Bug Title..."
+                     required
+              >
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Bug Infomation</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Bug Info..." rows="4"></textarea>
+              <textarea class="form-control"
+                        id="exampleFormControlTextarea1"
+                        v-model="state.newBug.description"
+                        placeholder="Bug Info..."
+                        rows="4"
+                        required
+              ></textarea>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary mr-3">
+                Submit
+              </button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">
+                Close
+              </button>
             </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">
-            Submit
-          </button>
-          <button type="button" class="btn btn-light" data-dismiss="modal">
-            Close
-          </button>
         </div>
       </div>
     </div>
@@ -69,13 +82,16 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { bugsService } from '../services/BugsService'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 export default {
   name: 'Home',
   setup() {
+    const state = reactive({
+      newBug: { }
+    })
     onMounted(async() => {
       try {
         await bugsService.getAll()
@@ -84,7 +100,17 @@ export default {
       }
     })
     return {
-      bugs: computed(() => AppState.bugs)
+      state,
+      bugs: computed(() => AppState.bugs),
+      async create() {
+        try {
+          await bugsService.create(state.newBug)
+          await bugsService.getAll()
+          state.newBug = {}
+        } catch (error) {
+          Pop.toast('We couldn\'t report that bug')
+        }
+      }
     }
   }
 }
