@@ -18,7 +18,7 @@
           </h6>
         </div>
         <h3 class="pl-3">
-          Person who reported
+          {{ bug.creator }}
         </h3>
       </div>
     </div>
@@ -36,7 +36,48 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-11 col-11 border border-dark">
-      {{ bug.description }}
+      <h6 class="pt-3">
+        {{ bug.description }}
+      </h6>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-11 col-11 mt-3">
+      <div class="row">
+        <div class="col-md-6 col-6">
+          <button type="button" class="btn btn-dark">
+            Edit
+          </button>
+        </div>
+        <div class="col-md-6 col-6 d-flex justify-content-end">
+          <button type="button" class="btn btn-danger">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4 justify-content-center mb-2">
+    <div class="col-md-10 col-10">
+      <div class="row">
+        <h3 class="pr-3">
+          Notes
+        </h3>
+        <h3 class="text-light action bg-green rounded px-2">
+          Add
+        </h3>
+      </div>
+      <div class="row bg-dark text-light">
+        <div class="col-md-3 col-12 pt-2">
+          <h5>Name</h5>
+        </div>
+        <div class="col-md-8 col-12 pt-2">
+          <h5>Reported By</h5>
+        </div>
+        <div class="col-md-1 col-12 pt-2">
+          <h5>Delete</h5>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,3 +105,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.action{
+  cursor: pointer;
+}
+</style>
