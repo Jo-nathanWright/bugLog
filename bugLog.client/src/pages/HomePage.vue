@@ -86,9 +86,11 @@ import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { bugsService } from '../services/BugsService'
 import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
+import { useRouter } from 'vue-router'
 export default {
   name: 'Home',
   setup() {
+    const router = useRouter()
     const state = reactive({
       newBug: { }
     })
@@ -104,9 +106,10 @@ export default {
       bugs: computed(() => AppState.bugs),
       async create() {
         try {
-          await bugsService.create(state.newBug)
+          const newId = await bugsService.create(state.newBug)
           await bugsService.getAll()
           state.newBug = {}
+          router.push({ name: 'Info', params: { bugId: newId } })
         } catch (error) {
           Pop.toast('We couldn\'t report that bug')
         }
