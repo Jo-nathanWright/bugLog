@@ -205,7 +205,7 @@ export default {
         try {
           state.newNote.bug = AppState.activeBug.id
           await notesService.create(state.newNote)
-          await bugsService.getNotes(route.params.bugId)
+          // await bugsService.getNotes(route.params.bugId)
           state.newNote = {}
         } catch (error) {
           Pop.toast(error)
