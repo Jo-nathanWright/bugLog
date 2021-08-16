@@ -13,7 +13,7 @@ export class BugsController extends BaseController {
       .get('/:id/notes', this.getNotes)
       .post('', this.create)
       .put('/:id', this.edit)
-      // .delete('/:id', this.remove)
+      .delete('/:id', this.remove)
   }
 
   async getAll(req, res, next) {
@@ -66,15 +66,11 @@ export class BugsController extends BaseController {
     }
   }
 
-  // async remove(req, res, next) {
-  //   try {
-  //     const user = req.userInfo
-  //     req.body.id = req.params.id
-  //     req.body = req.body.closed === true
-  //     const bug = await this.edit(req.params.id, user)
-  //     res.send(bug)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  async remove(req, res, next) {
+    try {
+      res.send()
+    } catch (error) {
+      next(error)
+    }
+  }
 }
