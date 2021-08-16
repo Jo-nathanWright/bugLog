@@ -12,6 +12,11 @@ class BugsService {
     AppState.activeBug = res.data
   }
 
+  async getNotes(id) {
+    const res = await api.get('api/bugs/' + id + '/notes')
+    AppState.notes = res.data
+  }
+
   async create(body) {
     const res = await api.post('api/bugs', body)
     AppState.bugs.push(res.data)
