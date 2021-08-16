@@ -20,6 +20,7 @@ class BugsService {
   }
 
   async edit(body, user) {
+    delete body.closed
     const bug = await this.getById(body.id)
     if (user.id === bug.creatorId.toString()) {
       const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
