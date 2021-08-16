@@ -50,7 +50,7 @@
           </button>
         </div>
         <div class="col-md-6 col-6 d-flex justify-content-end">
-          <button type="button" class="btn btn-danger" v-if="bug.creatorId === account.id & bug.closed === false">
+          <button type="button" class="btn btn-danger" v-if="bug.creatorId === account.id & bug.closed === false" @click="close(bug.id)">
             Close
           </button>
         </div>
@@ -213,6 +213,16 @@ export default {
           await notesService.create(state.newNote)
           await bugsService.getNotes(route.params.bugId)
           state.newNote = {}
+        } catch (error) {
+          Pop.toast(error)
+        }
+      },
+      async close(id) {
+        try {
+          if (await Pop.confirm('Ready To Close?', 'This cannot be reverted!', 'warning', 'Yes, Close It!')) {
+            await bugsService.destroy(id)
+            await bugsService.getById(id)
+          }
         } catch (error) {
           Pop.toast(error)
         }

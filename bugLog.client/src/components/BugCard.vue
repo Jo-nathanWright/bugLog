@@ -15,7 +15,7 @@
     <div class="col-md-2 col-5 pt-2">
       <span class="d-flex" v-if="bug.closed === false">
         <h5 class="pl-2">Open </h5>
-        <h5 class="pl-3"> 🟢</h5>
+        <h5 class="pl-3 action" @click="close(bug.id)"> 🟢</h5>
       </span>
       <span class="d-flex" v-else>
         <h5 class="pl-2">Closed </h5>
@@ -32,6 +32,8 @@
 
 <script>
 import { computed } from '@vue/runtime-core'
+import Pop from '../utils/Notifier'
+import { bugsService } from '../services/BugsService'
 export default {
   props: {
     bug: {
@@ -49,11 +51,24 @@ export default {
       return date
     }
     return {
-      date: computed(makeDate)
+      date: computed(makeDate),
+      async close(id) {
+        try {
+          if (await Pop.confirm('Ready To Close?', 'This cannot be reverted!', 'warning', 'Yes, Close It!')) {
+            await bugsService.destroy(id)
+            await bugsService.getAll()
+          }
+        } catch (error) {
+          Pop.toast(error)
+        }
+      }
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.action{
+  cursor: pointer;
+}
 </style>

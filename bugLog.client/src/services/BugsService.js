@@ -27,6 +27,11 @@ class BugsService {
     const res = await api.put('api/bugs/' + id, body)
     AppState.activeBug = res.data
   }
+
+  async destroy(id) {
+    await api.delete('api/bugs/' + id)
+    this.getAll()
+  }
 }
 
 export const bugsService = new BugsService()
