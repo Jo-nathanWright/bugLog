@@ -124,5 +124,9 @@ export default {
 <style scoped lang="scss">
 .action{
   cursor: pointer;
+  :hover{
+    color: blue;
+    text-decoration-color: blue;
+  }
 }
 </style>
