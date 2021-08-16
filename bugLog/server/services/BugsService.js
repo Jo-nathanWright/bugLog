@@ -20,7 +20,6 @@ class BugsService {
   }
 
   async edit(body, user) {
-    delete body.closed
     const bug = await this.getById(body.id)
     if (user.id === bug.creatorId.toString()) {
       const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
@@ -31,10 +30,10 @@ class BugsService {
     }
   }
 
-  async remove(body, user) {
-    const bug = await this.getById(body.id)
+  async remove(id, user) {
+    const bug = await this.getById(id)
     if (user.id === bug.creatorId.toString()) {
-      return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
+      return await dbContext.Bugs.findByIdAndUpdate(id, { closed: true }, { new: false, runValidators: true })
     }
   }
 }

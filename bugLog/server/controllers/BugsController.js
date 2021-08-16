@@ -69,9 +69,7 @@ export class BugsController extends BaseController {
   async remove(req, res, next) {
     try {
       const user = req.userInfo
-      req.body.closed = true
-      req.body.id = req.params.id
-      const bug = await bugsService.remove(req.body, user)
+      const bug = await bugsService.remove(req.params.id, user)
       res.send(bug)
     } catch (error) {
       next(error)
