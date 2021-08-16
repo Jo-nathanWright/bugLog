@@ -45,7 +45,7 @@
     <div class="col-md-11 col-11 mt-3">
       <div class="row">
         <div class="col-md-6 col-6">
-          <button type="button" class="btn btn-dark">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#Edit">
             Edit
           </button>
         </div>
@@ -80,10 +80,57 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal For Bug Reports -->
+  <div class="modal fade" id="Edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="EditLabel">
+            Edit Bug Report
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form @submit.prevent="edit()">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Title</label>
+              <input type="text"
+                     class="form-control"
+                     id="exampleFormControlInput1"
+                     v-model="state.report.title"
+                     placeholder="New Bug Title..."
+              >
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Bug Infomation</label>
+              <textarea class="form-control"
+                        id="exampleFormControlTextarea1"
+                        v-model="state.report.description"
+                        placeholder="New Bug Info..."
+                        rows="4"
+              ></textarea>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary mr-3">
+                Submit
+              </button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import Pop from '../utils/Notifier'
 import { bugsService } from '../services/BugsService'
 import { useRoute } from 'vue-router'
@@ -92,6 +139,9 @@ export default {
   name: 'Info',
   setup() {
     const route = useRoute()
+    const state = reactive({
+      report: {}
+    })
     onMounted(async() => {
       try {
         await bugsService.getById(route.params.bugId)
@@ -100,7 +150,16 @@ export default {
       }
     })
     return {
-      bug: computed(() => AppState.activeBug)
+      state,
+      bug: computed(() => AppState.activeBug),
+      async edit() {
+        try {
+          await bugsService.edit(state.report, route.params.bugId)
+          state.report = {}
+        } catch (error) {
+          Pop.toast('Error Editing that Report : ', error)
+        }
+      }
     }
   }
 }

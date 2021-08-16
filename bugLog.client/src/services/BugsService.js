@@ -17,6 +17,11 @@ class BugsService {
     AppState.bugs.push(res.data)
     return res.data.id
   }
+
+  async edit(body, id) {
+    const res = await api.put('api/bugs/' + id, body)
+    AppState.activeBug = res.data
+  }
 }
 
 export const bugsService = new BugsService()
