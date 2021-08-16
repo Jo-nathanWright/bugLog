@@ -63,7 +63,7 @@
         <h3 class="pr-3">
           Notes
         </h3>
-        <h3 class="text-light action bg-green rounded px-2" data-toggle="modal" data-target="#CreateNote">
+        <h3 class="text-light action bg-green rounded px-2" data-toggle="modal" data-target="#CreateNote" v-if="bug.closed === false">
           Add
         </h3>
       </div>

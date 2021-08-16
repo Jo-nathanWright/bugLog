@@ -1,5 +1,5 @@
 <template>
-  <div class="row border border-dark">
+  <div class="row border border-dark align-items-center">
     <div class="col-md-3 col-12 pt-2">
       <h5 class="pl-2">
         <router-link :to="{ name: 'Info', params: {bugId: bug.id} }">
@@ -8,9 +8,16 @@
       </h5>
     </div>
     <div class="col-md-4 col-12 pt-2">
-      <h5 class="pl-2">
-        {{ bug.creator.name }}
-      </h5>
+      <div class="row align-items-center pb-md-2 pl-2">
+        <div class="col-md-1 pb-md-0 pb-2">
+          <img :src="bug.creator?.picture" alt="ProfilePicture" height="40" class="rounded rounded-circle">
+        </div>
+        <div class="col-md-10 pb-md-0 pb-2 pt-2">
+          <h5 class="pl-md-4">
+            {{ bug.creator?.name }}
+          </h5>
+        </div>
+      </div>
     </div>
     <div class="col-md-2 col-5 pt-2">
       <span class="d-flex" v-if="bug.closed === false">

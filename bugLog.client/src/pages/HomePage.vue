@@ -52,7 +52,7 @@
                      id="exampleFormControlInput1"
                      v-model="state.newBug.title"
                      placeholder="Bug Title..."
-                     maxlength="25"
+                     maxlength="30"
                      required
               >
             </div>
