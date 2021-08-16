@@ -18,7 +18,7 @@
           </h6>
         </div>
         <h3 class="pl-3">
-          {{ bug.creator }}
+          {{ bug.creator?.name }}
         </h3>
       </div>
     </div>
@@ -115,7 +115,7 @@
             </div>
             <hr>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary mr-3">
+              <button type="submit" data-toggle="modal" data-target="#Edit" class="btn btn-primary mr-3">
                 Submit
               </button>
               <button type="button" class="btn btn-light" data-dismiss="modal">
