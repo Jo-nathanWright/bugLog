@@ -72,11 +72,14 @@
           <h5>Name</h5>
         </div>
         <div class="col-md-8 col-12 pt-2">
-          <h5>Reported By</h5>
+          <h5>Message</h5>
         </div>
         <div class="col-md-1 col-12 pt-2">
           <h5>Delete</h5>
         </div>
+      </div>
+      <div>
+        <NoteCard v-for="n in notes" :key="n.id" :note="n" />
       </div>
     </div>
   </div>
@@ -128,6 +131,7 @@
     </div>
   </div>
 
+  <!-- Modal For Note Creation -->
   <div class="modal fade" id="CreateNote" tabindex="-1" aria-labelledby="CreateNoteLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -174,7 +178,6 @@ import { bugsService } from '../services/BugsService'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { notesService } from '../services/NotesService'
-import { logger } from '../utils/Logger'
 export default {
   name: 'Info',
   setup() {
@@ -186,6 +189,7 @@ export default {
     onMounted(async() => {
       try {
         await bugsService.getById(route.params.bugId)
+        await bugsService.getNotes(route.params.bugId)
       } catch (error) {
         Pop.toast(error)
       }
@@ -193,6 +197,7 @@ export default {
     return {
       state,
       bug: computed(() => AppState.activeBug),
+      notes: computed(() => AppState.notes),
       async edit() {
         try {
           await bugsService.edit(state.report, route.params.bugId)
@@ -205,7 +210,7 @@ export default {
         try {
           state.newNote.bug = AppState.activeBug.id
           await notesService.create(state.newNote)
-          // await bugsService.getNotes(route.params.bugId)
+          await bugsService.getNotes(route.params.bugId)
           state.newNote = {}
         } catch (error) {
           Pop.toast(error)
