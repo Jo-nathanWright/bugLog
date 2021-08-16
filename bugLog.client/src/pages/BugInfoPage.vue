@@ -45,12 +45,12 @@
     <div class="col-md-11 col-11 mt-3">
       <div class="row">
         <div class="col-md-6 col-6">
-          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#Edit" v-if="bug.creatorId === account.id">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#Edit" v-if="bug.creatorId === account.id & bug.closed === false">
             Edit
           </button>
         </div>
         <div class="col-md-6 col-6 d-flex justify-content-end">
-          <button type="button" class="btn btn-danger" v-if="bug.creatorId === account.id">
+          <button type="button" class="btn btn-danger" v-if="bug.creatorId === account.id & bug.closed === false">
             Close
           </button>
         </div>
