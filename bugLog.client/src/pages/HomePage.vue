@@ -5,9 +5,9 @@
         <div class="col-md-1 col-4">
           <h3>Bugs</h3>
         </div>
-        <div class="col-md-11 col-8 d-flex justify-content-end">
+        <div class="col-md-11 col-8 d-flex justify-content-end align-items-center">
           <h4 class="action" data-toggle="modal" data-target="#Create">
-            Report A Bug
+            <u>Report A Bug</u>
           </h4>
         </div>
       </div>
@@ -52,7 +52,7 @@
                      id="exampleFormControlInput1"
                      v-model="state.newBug.title"
                      placeholder="Bug Title..."
-                     maxlength="30"
+                     maxlength="28"
                      required
               >
             </div>
@@ -63,6 +63,7 @@
                         v-model="state.newBug.description"
                         placeholder="Bug Info..."
                         rows="4"
+                        maxlength="1000"
                         required
               ></textarea>
             </div>

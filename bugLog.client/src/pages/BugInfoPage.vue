@@ -104,6 +104,7 @@
                      class="form-control"
                      id="exampleFormControlInput1"
                      v-model="state.report.title"
+                     maxlength="28"
                      placeholder="New Bug Title..."
               >
             </div>
@@ -113,6 +114,7 @@
                         id="BugDescription"
                         v-model="state.report.description"
                         placeholder="New Bug Info..."
+                        maxlength="1000"
                         rows="4"
               ></textarea>
             </div>
@@ -152,6 +154,7 @@
                         v-model="state.newNote.body"
                         placeholder="Comment..."
                         rows="4"
+                        maxlength="250"
                         required
               ></textarea>
             </div>
