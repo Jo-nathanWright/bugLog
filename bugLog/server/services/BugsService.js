@@ -21,21 +21,25 @@ class BugsService {
 
   async edit(body, user) {
     const bug = await this.getById(body.id)
-    if (user.id === bug.creatorId.toString()) {
-      const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
-      if (!bug) {
-        throw new BadRequest('Bug not found')
+    if (body.closed === true) {
+      throw new BadRequest('Bug Already closed.')
+    } else {
+      if (user.id === bug.creatorId.toString()) {
+        const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: false })
+        if (!bug) {
+          throw new BadRequest('Bug not found')
+        }
+        return bug
       }
-      return bug
     }
   }
 
-  // async remove(body, id, user) {
-  //   const bug = await this.getById(id)
-  //   if (user.id === bug.creatorId.toString()) {
-  //     return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
-  //   }
-  // }
+  async remove(body, user) {
+    const bug = await this.getById(body.id)
+    if (user.id === bug.creatorId.toString()) {
+      return await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: false, runValidators: true })
+    }
+  }
 }
 
 export const bugsService = new BugsService()

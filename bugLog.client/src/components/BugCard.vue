@@ -13,11 +13,13 @@
       </h5>
     </div>
     <div class="col-md-2 col-5 pt-2">
-      <span v-if="bug.closed === false">
-        <h5 class="pl-2">Open 🟢</h5>
+      <span class="d-flex" v-if="bug.closed === false">
+        <h5 class="pl-2">Open </h5>
+        <h5 class="pl-3"> 🟢</h5>
       </span>
-      <span v-else>
-        <h5 class="pl-2">Closed 🔴</h5>
+      <span class="d-flex" v-else>
+        <h5 class="pl-2">Closed </h5>
+        <h5 class="pl-1"> 🔴</h5>
       </span>
     </div>
     <div class="col-md-3 col-7 pt-2">
