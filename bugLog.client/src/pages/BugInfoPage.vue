@@ -45,12 +45,12 @@
     <div class="col-md-11 col-11 mt-3">
       <div class="row">
         <div class="col-md-6 col-6">
-          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#Edit">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#Edit" v-if="bug.creatorId === account.id">
             Edit
           </button>
         </div>
         <div class="col-md-6 col-6 d-flex justify-content-end">
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" v-if="bug.creatorId === account.id">
             Close
           </button>
         </div>
@@ -198,6 +198,7 @@ export default {
       state,
       bug: computed(() => AppState.activeBug),
       notes: computed(() => AppState.notes),
+      account: computed(() => AppState.account),
       async edit() {
         try {
           await bugsService.edit(state.report, route.params.bugId)

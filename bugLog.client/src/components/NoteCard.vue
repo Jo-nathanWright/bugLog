@@ -18,7 +18,7 @@
       </h5>
     </div>
     <div class="col-md-1 col-12 pt-2 d-flex justify-content-md-center pr-md-5 justify-content-end">
-      <h5 class="action" @click="destroy(note.id, note.bug)">
+      <h5 class="action" @click="destroy(note.id, note.bug)" v-if="note.creatorId === account.id">
         🗑
       </h5>
     </div>
@@ -26,9 +26,11 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
 import { bugsService } from '../services/BugsService'
 import { notesService } from '../services/NotesService'
 import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
 export default {
   props: {
     note: {
@@ -38,6 +40,7 @@ export default {
   },
   setup() {
     return {
+      account: computed(() => AppState.account),
       async destroy(id, bugId) {
         try {
           if (await Pop.confirm()) {
