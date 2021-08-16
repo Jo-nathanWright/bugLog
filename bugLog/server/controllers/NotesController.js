@@ -7,8 +7,18 @@ export class NotesController extends BaseController {
     super('api/notes')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('', this.getNotes)
       .post('', this.create)
       .delete('/:id', this.remove)
+  }
+
+  async getNotes(req, res, next) {
+    try {
+      const note = await notesService.getNotes({ creatorId: req.userInfo.id })
+      res.send(note)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async create(req, res, next) {
