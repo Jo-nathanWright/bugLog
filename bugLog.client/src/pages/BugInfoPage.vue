@@ -35,8 +35,8 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-md-11 col-11 border border-dark">
-      <h6 class="pt-3">
+    <div class="col-md-11 col-11 border border-dark bg-light">
+      <h6 class="pt-3 pb-2">
         {{ bug.description }}
       </h6>
     </div>
