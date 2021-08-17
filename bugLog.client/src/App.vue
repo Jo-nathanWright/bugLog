@@ -9,7 +9,7 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💙 by Jonathan
+      Made with 🐞 by Jonathan
     </div>
   </footer>
 </template>
