@@ -205,6 +205,7 @@ export default {
       async edit() {
         try {
           await bugsService.edit(state.report, route.params.bugId)
+          await bugsService.getById(route.params.bugId)
           state.report = {}
         } catch (error) {
           Pop.toast(error)
